@@ -19,6 +19,18 @@
     });
   });
 
+  // Give the hero word “Sandbox” a playful rainbow treatment,
+  // one colour per letter, while preserving accessible text.
+  const heroSandbox = document.querySelector('.hero h1 > span:first-child');
+  if (heroSandbox) {
+    const rainbow = ['#e85d75', '#ef8a3d', '#e8b84f', '#9fbd3b', '#4aa6b5', '#5b6cc0', '#8b4b8f'];
+    const word = heroSandbox.textContent.trim();
+    heroSandbox.setAttribute('aria-label', word);
+    heroSandbox.innerHTML = [...word]
+      .map((letter, index) => `<span aria-hidden="true" style="color:${rainbow[index % rainbow.length]};display:inline-block">${letter}</span>`)
+      .join('');
+  }
+
   const revealItems = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {

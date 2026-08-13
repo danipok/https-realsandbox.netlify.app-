@@ -22,9 +22,72 @@
 
   const sandbox = document.querySelector('[data-sandbox]');
   if (sandbox) {
-    [...sandbox.querySelectorAll('[data-draggable]')].forEach(piece => {
+    const pieces = [...sandbox.querySelectorAll('[data-draggable]')];
+    const portal = sandbox.querySelector('.sand-label');
+    const openingMessage = 'drag a fragment into the unknown';
+    const responses = {
+      Challenge: 'What if the obstacle is an invitation?',
+      Values: 'What would you refuse to trade away?',
+      People: 'Who else could change the game?',
+      Potential: 'What becomes possible if you stop asking permission?',
+      Ideas: 'What if the first idea is only a doorway?'
+    };
+    let currentMessage = openingMessage;
+    let transformed = 0;
+
+    if (portal) portal.dataset.message = openingMessage;
+
+    const pieceName = piece => piece.querySelector('small')?.textContent?.trim() || 'Idea';
+    const inPortal = piece => {
+      const sr = sandbox.getBoundingClientRect();
+      const pr = piece.getBoundingClientRect();
+      const px = pr.left + pr.width / 2;
+      const py = pr.top + pr.height / 2;
+      const cx = sr.left + sr.width / 2;
+      const cy = sr.top + sr.height / 2;
+      const radius = Math.min(145, Math.max(108, sr.width * .18));
+      return Math.hypot(px - cx, py - cy) <= radius;
+    };
+
+    const setMessage = message => {
+      currentMessage = message;
+      if (portal) portal.dataset.message = message;
+    };
+
+    const absorb = piece => {
+      if (piece.classList.contains('consumed')) return;
+      transformed += 1;
+      piece.classList.add('consumed');
+      sandbox.classList.remove('portal-ready');
+      sandbox.classList.add('portal-flash');
+      setTimeout(() => sandbox.classList.remove('portal-flash'), 650);
+
+      if (transformed === pieces.length) {
+        setMessage('Now nothing looks quite the same. Click the centre to begin again.');
+        sandbox.classList.add('complete');
+      } else {
+        setMessage(responses[pieceName(piece)] || 'What else changes when you look again?');
+      }
+    };
+
+    const reset = () => {
+      transformed = 0;
+      sandbox.classList.remove('complete', 'portal-ready', 'portal-flash');
+      pieces.forEach(piece => {
+        piece.classList.remove('consumed');
+        piece.removeAttribute('style');
+      });
+      setMessage(openingMessage);
+    };
+
+    portal?.addEventListener('click', () => {
+      if (sandbox.classList.contains('complete')) reset();
+    });
+
+    pieces.forEach(piece => {
       let drag = null;
       piece.addEventListener('pointerdown', e => {
+        if (piece.classList.contains('consumed')) return;
         e.preventDefault();
         const pr = piece.getBoundingClientRect();
         drag = { id:e.pointerId, ox:e.clientX-pr.left, oy:e.clientY-pr.top };
@@ -39,13 +102,24 @@
         const x = Math.max(0, Math.min(sr.width-w, e.clientX-sr.left-drag.ox));
         const y = Math.max(0, Math.min(sr.height-h, e.clientY-sr.top-drag.oy));
         piece.style.left = `${x}px`; piece.style.top = `${y}px`; piece.style.right='auto'; piece.style.bottom='auto';
+        const ready = inPortal(piece);
+        sandbox.classList.toggle('portal-ready', ready);
+        if (portal) portal.dataset.message = ready ? 'release to transform' : currentMessage;
       });
       const end = e => {
         if (!drag || e.pointerId !== drag.id) return;
         try { piece.releasePointerCapture(e.pointerId); } catch (_) {}
-        piece.style.zIndex = 3; drag = null;
+        const shouldAbsorb = inPortal(piece);
+        piece.style.zIndex = 3;
+        drag = null;
+        if (shouldAbsorb) absorb(piece);
+        else {
+          sandbox.classList.remove('portal-ready');
+          if (portal) portal.dataset.message = currentMessage;
+        }
       };
-      piece.addEventListener('pointerup', end); piece.addEventListener('pointercancel', end);
+      piece.addEventListener('pointerup', end);
+      piece.addEventListener('pointercancel', end);
     });
   }
 

@@ -24,6 +24,20 @@
   if (sandbox) {
     const pieces = [...sandbox.querySelectorAll('[data-draggable]')];
     const portal = sandbox.querySelector('.sand-label');
+
+    const fx = document.createElement('style');
+    fx.textContent = [
+      '.sand-label::after{content:attr(data-message)!important}',
+      '.sandbox-scene.portal-ready .sand-label{transform:translate(-50%,-50%) scale(1.14)!important;box-shadow:0 0 0 20px rgba(242,238,225,.42),0 30px 74px rgba(50,38,20,.2)!important}',
+      '.sandbox-scene.portal-ready .sand-label::before{content:"LET GO"!important}',
+      '.sandbox-scene.portal-flash .sand-label{animation:portalBurst .62s ease}',
+      '.sandbox-scene.complete .sand-label{pointer-events:auto!important;cursor:pointer}',
+      '.sandbox-scene.complete .sand-label::before{content:"AGAIN?"!important}',
+      '.puzzle-piece.consumed{left:50%!important;top:50%!important;right:auto!important;bottom:auto!important;opacity:0!important;filter:blur(8px);transform:translate(-50%,-50%) scale(.05) rotate(160deg)!important;pointer-events:none!important;transition:left .46s cubic-bezier(.2,.8,.2,1),top .46s cubic-bezier(.2,.8,.2,1),opacity .46s ease,transform .46s ease,filter .46s ease!important}',
+      '@keyframes portalBurst{0%,100%{transform:translate(-50%,-50%) scale(1)}45%{transform:translate(-50%,-50%) scale(1.22);box-shadow:0 0 0 28px rgba(242,238,225,.25),0 36px 86px rgba(50,38,20,.24)}}'
+    ].join('');
+    document.head.appendChild(fx);
+
     const openingMessage = 'drag a fragment into the unknown';
     const responses = {
       Challenge: 'What if the obstacle is an invitation?',

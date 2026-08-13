@@ -51,10 +51,26 @@
 
   const board = document.querySelector('[data-journey-board]');
   const blocks = board ? [...board.querySelectorAll('[data-journey-block]')] : [];
-  const COLS = 5, ROWS = 3;
+  const COLS = 4, ROWS = 2;
+  const startingPositions = [[0,0],[1,1],[2,0],[3,1],[0,1],[3,0]];
+  blocks.forEach((b, i) => {
+    const p = startingPositions[i];
+    if (p) { b.dataset.col = p[0]; b.dataset.row = p[1]; }
+  });
+
   let metrics = null, active = null;
+  const sizeBoard = () => {
+    if (!board) return;
+    board.style.aspectRatio = '2 / 1';
+    board.style.minHeight = '0';
+    board.style.height = 'auto';
+    if (window.innerWidth <= 640) board.style.width = '94vw';
+    else if (window.innerWidth <= 1000) board.style.width = 'min(780px, 92vw)';
+    else board.style.width = 'min(780px, 56vw)';
+  };
   const measure = () => {
     if (!board) return;
+    sizeBoard();
     const gap = parseFloat(getComputedStyle(board).getPropertyValue('--gap')) || 14;
     const w = board.clientWidth, h = board.clientHeight;
     metrics = { gap, w, h, cw:(w-gap*(COLS-1))/COLS, ch:(h-gap*(ROWS-1))/ROWS };

@@ -1,1 +1,25 @@
-.journey-board{aspect-ratio:2/1;width:min(760px,54vw);min-height:320px;max-height:460px}.journey-axis{display:none!important}@media(max-width:1000px){.journey-board{width:min(760px,90vw);aspect-ratio:2/1;min-height:300px}}@media(max-width:640px){.journey-board{width:94vw;height:360px;min-height:360px;aspect-ratio:auto}}
+.journey-board{aspect-ratio:2/1;width:min(760px,54vw);min-height:320px;max-height:460px;background:transparent;box-shadow:none}.journey-axis{display:none!important}.journey-block{border:0;border-radius:12px;box-shadow:0 12px 24px rgba(50,38,20,.11)}.journey-block.j1{background:#e85d75;color:#151515}.journey-block.j2{background:#ef8a3d;color:#151515}.journey-block.j3{background:#e8b84f;color:#151515}.journey-block.j4{background:#9fbd3b;color:#151515}.journey-block.j5{background:#4aa6b5;color:#fff}.journey-block.j6{background:#8b4b8f;color:#fff}
+
+/* Entrepreneurship as play: turn the old sandbox into a transformation field. */
+.sandbox-scene{position:relative;width:min(760px,100%);height:min(53vh,500px);min-height:420px;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:hidden;isolation:isolate}
+.sandbox-scene::before,.sandbox-scene::after{content:"";position:absolute;left:50%;top:50%;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:1}
+.sandbox-scene::before{width:min(62%,440px);aspect-ratio:1;border:1px dashed rgba(21,21,21,.17);animation:portal-orbit 24s linear infinite}
+.sandbox-scene::after{width:min(41%,292px);aspect-ratio:1;border:1px solid rgba(21,21,21,.09);animation:portal-orbit 17s linear infinite reverse}
+.sand-label{left:50%;top:50%;width:184px;height:184px;padding:30px;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border-radius:50%;font-size:0;opacity:1;z-index:2;pointer-events:none;color:#151515;text-align:center;background:radial-gradient(circle at center,var(--paper) 0 55%,rgba(242,238,225,.96) 56% 61%,transparent 62%),conic-gradient(#e85d75,#ef8a3d,#e8b84f,#9fbd3b,#4aa6b5,#5b6cc0,#8b4b8f,#e85d75);box-shadow:0 0 0 12px rgba(242,238,225,.7),0 22px 52px rgba(50,38,20,.13);transition:transform .25s ease,box-shadow .25s ease}
+.sand-label::before{content:"WHAT IF?";display:block;font:900 11px/1 Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:.15em}
+.sand-label::after{content:"drag a fragment into the unknown";display:block;max-width:124px;font:600 italic 17px/1.08 Georgia,serif;letter-spacing:0;text-transform:none}
+.sandbox-scene:has(.puzzle-piece:active) .sand-label{transform:translate(-50%,-50%) scale(1.08);box-shadow:0 0 0 18px rgba(242,238,225,.48),0 28px 68px rgba(50,38,20,.18)}
+.puzzle-piece{width:142px;height:118px;padding:18px;z-index:4;border:0;box-shadow:0 14px 28px rgba(50,38,20,.13);transition:box-shadow .18s ease,filter .18s ease;display:flex;flex-direction:column;justify-content:space-between}
+.puzzle-piece::before,.puzzle-piece::after{display:none!important}
+.puzzle-piece:hover{filter:saturate(1.08);box-shadow:0 18px 34px rgba(50,38,20,.18)}
+.puzzle-piece small{font-size:11px;letter-spacing:.1em}.puzzle-piece strong{font-size:34px}
+.p1{left:3%;top:16%;background:#e85d75;border-radius:48% 52% 58% 42% / 57% 38% 62% 43%;transform:rotate(-8deg)}
+.p2{right:4%;top:13%;background:#ef8a3d;border-radius:999px;transform:rotate(7deg)}
+.p3{left:7%;bottom:11%;background:#e8b84f;clip-path:polygon(50% 0,100% 28%,88% 85%,45% 100%,0 70%,8% 17%);transform:rotate(5deg)}
+.p4{right:5%;bottom:10%;background:#9fbd3b;border-radius:22px 58px 28px 54px;transform:rotate(-7deg)}
+.p5{left:calc(50% - 71px);top:3%;background:#8b4b8f;color:#fff;border-radius:18px;transform:rotate(9deg)}
+@keyframes portal-orbit{to{transform:translate(-50%,-50%) rotate(360deg)}}
+
+@media(max-width:1000px){.journey-board{width:min(760px,90vw);aspect-ratio:2/1;min-height:300px}.sandbox-scene{margin-inline:auto;width:min(760px,96vw);height:500px}}
+@media(max-width:640px){.journey-board{width:94vw;height:360px;min-height:360px;aspect-ratio:auto}.sandbox-scene{height:430px;min-height:430px}.sand-label{width:156px;height:156px;padding:24px}.sand-label::after{font-size:15px;max-width:110px}.puzzle-piece{width:104px;height:84px;padding:12px}.puzzle-piece strong{font-size:26px}.puzzle-piece small{font-size:9px}.p1{left:0;top:16%}.p2{right:0;top:13%}.p3{left:1%;bottom:12%}.p4{right:1%;bottom:11%}.p5{left:calc(50% - 52px);top:2%}}
+@media(prefers-reduced-motion:reduce){.sandbox-scene::before,.sandbox-scene::after{animation:none}}

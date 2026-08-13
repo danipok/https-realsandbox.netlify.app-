@@ -20,6 +20,15 @@
 .p5{left:calc(50% - 71px);top:3%;background:#8b4b8f;color:#fff;border-radius:18px;transform:rotate(9deg)}
 @keyframes portal-orbit{to{transform:translate(-50%,-50%) rotate(360deg)}}
 
+/* Restore compact registration buttons inside the original registration bar. */
+.official-link>div>div{display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;align-items:center!important;gap:10px!important}
+.official-link>div>div>.button{flex:0 0 auto!important;width:auto!important;min-width:0!important;max-width:none!important}
+
+/* Replace the old Level fact with the dates of the first course. */
+.facts-grid>div:nth-child(6) dt,.facts-grid>div:nth-child(6) dd{font-size:0!important}
+.facts-grid>div:nth-child(6) dt::after{content:"Dates";font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.5}
+.facts-grid>div:nth-child(6) dd::after{content:"2 Nov 2026 – 15 Jan 2027";font-size:17px;font-weight:680;line-height:1.22}
+
 @media(max-width:1000px){.journey-board{width:min(760px,90vw);aspect-ratio:2/1;min-height:300px}.sandbox-scene{margin-inline:auto;width:min(760px,96vw);height:500px}}
-@media(max-width:640px){.journey-board{width:94vw;height:360px;min-height:360px;aspect-ratio:auto}.sandbox-scene{height:430px;min-height:430px}.sand-label{width:156px;height:156px;padding:24px}.sand-label::after{font-size:15px;max-width:110px}.puzzle-piece{width:104px;height:84px;padding:12px}.puzzle-piece strong{font-size:26px}.puzzle-piece small{font-size:9px}.p1{left:0;top:16%}.p2{right:0;top:13%}.p3{left:1%;bottom:12%}.p4{right:1%;bottom:11%}.p5{left:calc(50% - 52px);top:2%}}
+@media(max-width:640px){.journey-board{width:94vw;height:360px;min-height:360px;aspect-ratio:auto}.sandbox-scene{height:430px;min-height:430px}.sand-label{width:156px;height:156px;padding:24px}.sand-label::after{font-size:15px;max-width:110px}.puzzle-piece{width:104px;height:84px;padding:12px}.puzzle-piece strong{font-size:26px}.puzzle-piece small{font-size:9px}.p1{left:0;top:16%}.p2{right:0;top:13%}.p3{left:1%;bottom:12%}.p4{right:1%;bottom:11%}.p5{left:calc(50% - 52px);top:2%}.facts-grid>div:nth-child(6) dd::after{font-size:14px}}
 @media(prefers-reduced-motion:reduce){.sandbox-scene::before,.sandbox-scene::after{animation:none}}

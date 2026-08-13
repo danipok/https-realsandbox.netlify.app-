@@ -1,0 +1,1 @@
+.journey-board{aspect-ratio:2/1;width:min(760px,54vw);min-height:320px;max-height:460px}.journey-axis{display:none!important}@media(max-width:1000px){.journey-board{width:min(760px,90vw);aspect-ratio:2/1;min-height:300px}}@media(max-width:640px){.journey-board{width:94vw;height:360px;min-height:360px;aspect-ratio:auto}}

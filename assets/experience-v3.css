@@ -1,0 +1,89 @@
+/* Latest interaction/layout overrides. Loaded after journey-4x2.css. */
+
+/* Desktop: Entrepreneurship as play mirrors the official-view composition. */
+.idea-heading{min-width:0}
+.idea-heading h2{margin:0;font-size:clamp(3.8rem,6.4vw,6.4rem);line-height:.88;letter-spacing:-.068em}
+.idea-heading h2 em{font-family:Georgia,serif;font-weight:400}
+.idea-visual{min-width:0;display:flex;align-items:center;justify-content:center}
+@media(min-width:1001px){
+  .idea-layout{width:min(1220px,100%);grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
+  .sandbox-scene{width:min(650px,100%)}
+}
+@media(max-width:1000px){.idea-heading{text-align:center}}
+@media(max-width:640px){.idea-heading h2{font-size:3.5rem}}
+@media(max-width:400px){.idea-heading h2{font-size:clamp(2.1rem,10.5vw,2.75rem);line-height:.9}}
+
+/* No straight line required: turn the six draggable rectangles into footprints. */
+.journey-block{
+  --step:#e85d75;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  background:transparent!important;
+  padding:0;
+  display:block;
+  overflow:visible;
+  font-size:clamp(14px,1.45vw,20px);
+}
+.journey-block::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  left:18%;right:11%;top:18%;bottom:3%;
+  background:var(--step);
+  border-radius:52% 48% 43% 57% / 64% 58% 42% 36%;
+  box-shadow:0 12px 24px rgba(50,38,20,.11);
+  transform:rotate(-6deg);
+  transition:filter .15s ease,box-shadow .15s ease;
+}
+.journey-block::after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  left:16%;top:4%;
+  width:16%;aspect-ratio:1;
+  border-radius:50%;
+  background:var(--step);
+  box-shadow:1.05em -.16em 0 -.08em var(--step),2.02em .08em 0 -.15em var(--step),2.86em .58em 0 -.22em var(--step);
+  transform:rotate(-6deg);
+}
+.journey-block:nth-child(even)::before{transform:scaleX(-1) rotate(-6deg)}
+.journey-block:nth-child(even)::after{
+  left:auto;right:16%;
+  box-shadow:-1.05em -.16em 0 -.08em var(--step),-2.02em .08em 0 -.15em var(--step),-2.86em .58em 0 -.22em var(--step);
+  transform:rotate(6deg);
+}
+.journey-block strong{
+  position:absolute;
+  z-index:2;
+  left:20%;right:13%;bottom:22%;
+  text-align:center;
+  font-size:clamp(.72rem,1.2vw,1rem);
+  line-height:1;
+  letter-spacing:-.035em;
+  pointer-events:none;
+}
+.journey-block.dragging::before{filter:saturate(1.08);box-shadow:0 18px 34px rgba(50,38,20,.18)}
+.journey-block.j1{--step:#e85d75;color:#151515}
+.journey-block.j2{--step:#ef8a3d;color:#151515}
+.journey-block.j3{--step:#e8b84f;color:#151515}
+.journey-block.j4{--step:#9fbd3b;color:#151515}
+.journey-block.j5{--step:#4aa6b5;color:#fff}
+.journey-block.j6{--step:#8b4b8f;color:#fff}
+@media(max-width:640px){
+  .journey-block{padding:0;font-size:11px}
+  .journey-block strong{font-size:clamp(.55rem,2.4vw,.68rem);left:15%;right:10%;bottom:22%;white-space:normal}
+}
+@media(max-width:400px){
+  .journey-block{padding:0;font-size:9px}
+  .journey-block strong{font-size:clamp(.52rem,2.25vw,.62rem);white-space:normal;left:13%;right:8%}
+}
+
+/* Shark exits left; unicorn and elephant keep the existing rightward exit. */
+.play-creature[data-creature="shark"].escaping{animation-name:creature-run-out-left}
+@keyframes creature-run-out-left{
+  0%{opacity:1;filter:none;transform:translate(-50%,-62%) scale(1) rotate(0deg)}
+  32%{opacity:.96;transform:translate(-78%,-66%) scale(.98) rotate(-2deg)}
+  68%{opacity:.62;filter:blur(1px);transform:translate(-28vw,-72%) scale(.9) rotate(-4deg)}
+  100%{opacity:0;filter:blur(8px);transform:translate(-72vw,-80%) scale(.7) rotate(-8deg)}
+}

@@ -109,7 +109,7 @@
       portal.dataset.message = message;
     };
 
-    const openingState = () => setPortal('MELTING POT', 'drag all five pieces into the center');
+    const openingState = () => setPortal('MELTING POT', 'drag all six pieces into the center');
     openingState();
 
     if (portal) {

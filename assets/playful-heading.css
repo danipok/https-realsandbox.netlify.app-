@@ -1,3 +1,5 @@
 /* "Course as we see it" — playful per-letter styling for the idea-section heading. */
+.playful-heading{word-spacing:.5em}
+.playful-heading .pf-word{display:inline-block}
 .playful-heading .pf-letter{display:inline-block}
 .playful-heading .pf-flip{display:inline-block;transform:rotate(180deg)}

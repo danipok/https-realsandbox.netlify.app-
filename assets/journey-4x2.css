@@ -1,7 +1,7 @@
-.journey-board{aspect-ratio:2/1;width:min(760px,54vw);min-height:320px;max-height:460px;background:transparent;box-shadow:none}.journey-axis{display:none!important}.journey-block{border:0;border-radius:12px;box-shadow:0 12px 24px rgba(50,38,20,.11)}.journey-block.j1{background:#e85d75;color:#151515}.journey-block.j2{background:#ef8a3d;color:#151515}.journey-block.j3{background:#e8b84f;color:#151515}.journey-block.j4{background:#9fbd3b;color:#151515}.journey-block.j5{background:#4aa6b5;color:#fff}.journey-block.j6{background:#8b4b8f;color:#fff}
+.journey-board{aspect-ratio:2/1;width:min(760px,54vw);min-height:320px;max-height:460px;background:transparent;box-shadow:none;touch-action:pan-y}.journey-axis{display:none!important}.journey-block{border:0;border-radius:12px;box-shadow:0 12px 24px rgba(50,38,20,.11)}.journey-block.j1{background:#e85d75;color:#151515}.journey-block.j2{background:#ef8a3d;color:#151515}.journey-block.j3{background:#e8b84f;color:#151515}.journey-block.j4{background:#9fbd3b;color:#151515}.journey-block.j5{background:#4aa6b5;color:#fff}.journey-block.j6{background:#8b4b8f;color:#fff}
 
 /* Entrepreneurship as play: an animated melting pot. */
-.sandbox-scene{position:relative;width:min(780px,100%);height:min(58vh,550px);min-height:500px;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:hidden;isolation:isolate}
+.sandbox-scene{position:relative;width:min(780px,100%);height:min(58vh,550px);height:min(58svh,550px);min-height:500px;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:hidden;isolation:isolate}
 .sandbox-scene::before,.sandbox-scene::after{content:"";position:absolute;left:50%;top:50%;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:1}
 .sandbox-scene::before{width:min(68%,500px);aspect-ratio:1;border:1px dashed rgba(21,21,21,.15);animation:portal-orbit 25s linear infinite}
 .sandbox-scene::after{width:min(48%,350px);aspect-ratio:1;border:1px solid rgba(21,21,21,.08);animation:portal-orbit 18s linear infinite reverse}
@@ -31,8 +31,8 @@
 .puzzle-piece.reborn{animation:piece-reborn .68s ease both}
 
 .play-creature{position:absolute;left:50%;top:50%;width:355px;height:255px;z-index:8;opacity:0;pointer-events:none;filter:blur(13px);transform:translate(-50%,-34%) scale(.08) rotate(-8deg);transform-origin:50% 80%;transition:opacity .7s ease,transform .82s cubic-bezier(.15,.9,.25,1.12),filter .66s ease}
-.play-creature.visible{opacity:1;filter:none;transform:translate(-50%,-62%) scale(1) rotate(0deg);pointer-events:auto;cursor:pointer}
-.play-creature.exiting{opacity:0;filter:blur(12px);transform:translate(-50%,-26%) scale(.05) rotate(16deg);transition:opacity .44s ease,transform .52s ease,filter .44s ease}
+.play-creature.visible{opacity:1;filter:none;transform:translate(-50%,-62%) scale(1) rotate(0deg);pointer-events:none}
+.play-creature.escaping{animation:creature-run-out 1.45s cubic-bezier(.2,.7,.3,1) forwards;pointer-events:none}
 .play-creature svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 18px 18px rgba(50,38,20,.13))}
 .play-creature.visible svg{animation:creature-float 3.8s ease-in-out .7s infinite}
 .play-creature .c-piece{transform-box:fill-box;transform-origin:center;animation:creature-piece-in .72s cubic-bezier(.15,.9,.25,1.2) both}
@@ -42,12 +42,8 @@
 @keyframes melting-pot{0%,100%{border-radius:52% 48% 56% 44% / 47% 57% 43% 53%;background-position:50% 50%,0 0}22%{border-radius:44% 56% 46% 54% / 59% 43% 57% 41%}48%{border-radius:59% 41% 53% 47% / 42% 61% 39% 58%;background-position:47% 52%,0 0}73%{border-radius:47% 53% 41% 59% / 54% 45% 55% 46%}}
 @keyframes pot-flash{0%,100%{filter:brightness(1)}45%{filter:brightness(1.13) saturate(1.22)}}
 @keyframes creature-piece-in{0%{opacity:0;transform:scale(.12) rotate(35deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
-@keyframes creature-float{0%,100%{transform:translateY(0) rotate(-.6deg)}50%{transform:translateY(-8px) rotate(.6deg)}}
+@keyframes creature-float{0%,100%{transform:translateY(0) rotate(-.6deg)}50%{transform:translateY(-8px) rotate(.6deg)}}@keyframes creature-run-out{0%{opacity:1;filter:none;transform:translate(-50%,-62%) scale(1) rotate(0deg)}32%{opacity:.96;transform:translate(-22%,-66%) scale(.98) rotate(2deg)}68%{opacity:.62;filter:blur(1px);transform:translate(28vw,-72%) scale(.9) rotate(4deg)}100%{opacity:0;filter:blur(8px);transform:translate(72vw,-80%) scale(.7) rotate(8deg)}}
 @keyframes piece-reborn{0%{opacity:0;filter:blur(10px) saturate(1.5)}60%{opacity:1;filter:blur(0) saturate(1.18)}100%{opacity:1;filter:none}}
-
-/* Restore compact registration buttons inside the original registration bar. */
-.official-link>div>div{display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;align-items:center!important;gap:10px!important}
-.official-link>div>div>.button{flex:0 0 auto!important;width:auto!important;min-width:0!important;max-width:none!important}
 
 /* Replace the old Level fact with the first course schedule. */
 .facts-grid>div:nth-child(6) dt,.facts-grid>div:nth-child(6) dd{font-size:0!important}
@@ -56,4 +52,6 @@
 
 @media(max-width:1000px){.journey-board{width:min(760px,90vw);aspect-ratio:2/1;min-height:300px}.sandbox-scene{margin-inline:auto;width:min(780px,96vw);height:540px}}
 @media(max-width:640px){.journey-board{width:94vw;height:360px;min-height:360px;aspect-ratio:auto}.sandbox-scene{height:465px;min-height:465px}.sandbox-scene::before{width:95vw}.sandbox-scene::after{width:72vw}.sand-label{width:235px;height:210px;padding:30px 32px}.sand-label::after{font-size:16px;max-width:165px}.sandbox-scene.completing .sand-label{width:260px;height:235px}.sandbox-scene.complete .sand-label{width:300px;height:285px;padding:190px 32px 25px}.sandbox-scene.complete .sand-label::after{font-size:15px;max-width:205px}.play-creature{width:285px;height:210px}.play-creature.visible{transform:translate(-50%,-61%) scale(1)}.puzzle-piece{width:104px;height:84px;padding:12px}.puzzle-piece strong{font-size:26px}.puzzle-piece small{font-size:9px}.p1{left:0;top:15%}.p2{right:0;top:12%}.p3{left:1%;bottom:10%}.p4{right:1%;bottom:10%}.p5{left:calc(50% - 52px);top:0}.facts-grid>div:nth-child(6) dd::after{font-size:14px}}
-@media(prefers-reduced-motion:reduce){.sandbox-scene::before,.sandbox-scene::after,.sand-label,.play-creature.visible svg,.play-creature .c-piece,.puzzle-piece.reborn{animation:none}.play-creature,.puzzle-piece.consumed{transition-duration:.01ms!important}}
+@media(max-width:1000px) and (orientation:landscape) and (max-height:520px){.sandbox-scene{height:min(85svh,400px);min-height:300px}}
+@media(max-width:400px){.journey-board{--gap:8px;height:300px;min-height:300px}.journey-block{padding:8px 7px}.journey-block strong{font-size:clamp(.64rem,2.9vw,.72rem);white-space:nowrap}.puzzle-piece{width:96px;height:80px;padding:10px}.puzzle-piece small{font-size:8px}.puzzle-piece strong{font-size:24px}.p1,.p2{top:22%}.p5{left:calc(50% - 48px)}}
+@media(prefers-reduced-motion:reduce){.sandbox-scene::before,.sandbox-scene::after,.sand-label,.play-creature.visible svg,.play-creature .c-piece,.play-creature.escaping,.puzzle-piece.reborn{animation:none}.play-creature,.puzzle-piece.consumed{transition-duration:.01ms!important}.play-creature.escaping{opacity:0!important}}

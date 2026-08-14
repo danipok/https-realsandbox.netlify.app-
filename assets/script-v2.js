@@ -258,6 +258,13 @@
 
       piece.addEventListener('pointerup', e => end(e, false));
       piece.addEventListener('pointercancel', e => end(e, true));
+
+      piece.addEventListener('keydown', e => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        if (piece.classList.contains('consumed') || roundComplete || resetting) return;
+        e.preventDefault();
+        absorb(piece);
+      });
     });
   }
 

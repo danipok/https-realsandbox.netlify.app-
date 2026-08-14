@@ -14,9 +14,24 @@
 
   const officialPhoto = document.querySelector('[data-official-photo]');
   if (officialPhoto && matchMedia('(hover: none), (pointer: coarse)').matches && 'IntersectionObserver' in window) {
+    let photoZoomed = false;
+
     const photoObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => officialPhoto.classList.toggle('hovered', entry.isIntersecting && entry.intersectionRatio > .72));
-    }, { threshold: [.3, .72, .9], rootMargin: '-10% 0px -10% 0px' });
+      entries.forEach(entry => {
+        const ratio = entry.intersectionRatio;
+
+        if (!photoZoomed && entry.isIntersecting && ratio >= .78) {
+          photoZoomed = true;
+          officialPhoto.classList.add('hovered');
+        } else if (photoZoomed && (!entry.isIntersecting || ratio <= .58)) {
+          photoZoomed = false;
+          officialPhoto.classList.remove('hovered');
+        }
+      });
+    }, {
+      threshold: [0, .58, .78, 1],
+      rootMargin: '-10% 0px -10% 0px'
+    });
     photoObserver.observe(officialPhoto);
   }
 
@@ -98,9 +113,9 @@
     openingState();
 
     if (portal) {
-      portal.setAttribute('role', 'button');
       portal.setAttribute('aria-label', 'Melting pot');
-      portal.tabIndex = -1;
+      portal.removeAttribute('role');
+      portal.removeAttribute('tabindex');
     }
 
     const inPortal = piece => {
@@ -118,26 +133,48 @@
       return (dx * dx + dy * dy) <= 1;
     };
 
+    const resetAfterCreature = () => {
+      if (resetting) return;
+      resetting = true;
+      roundComplete = false;
+
+      creatureStage.classList.add('escaping');
+
+      setTimeout(() => {
+        creatureStage.innerHTML = '';
+        creatureStage.className = 'play-creature';
+        currentCreatureIndex = (currentCreatureIndex + 1) % creatureOrder.length;
+        transformed = 0;
+        restorePieces();
+        sandbox.classList.remove('complete', 'completing', 'portal-ready', 'portal-flash', 'resetting');
+        openingState();
+
+        setTimeout(() => {
+          resetting = false;
+        }, pieces.length * 90 + 260);
+      }, 1450);
+    };
+
     const showCreature = () => {
       const type = creatureOrder[currentCreatureIndex];
       creatureStage.innerHTML = creatureSVG[type];
       creatureStage.dataset.creature = type;
       creatureStage.setAttribute('aria-label', creatureNames[type]);
       sandbox.classList.remove('completing', 'portal-flash');
-      sandbox.classList.add('complete');
       roundComplete = true;
-      setPortal('NEW POSSIBILITY', `${creatureNames[type]}! press the center again to start a new play`);
-      if (portal) {
-        portal.tabIndex = 0;
-        portal.setAttribute('aria-label', `${creatureNames[type]} created. Press again to start a new play.`);
-      }
-      requestAnimationFrame(() => requestAnimationFrame(() => creatureStage.classList.add('visible')));
+      openingState();
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          creatureStage.classList.add('visible');
+          setTimeout(resetAfterCreature, 900);
+        });
+      });
     };
 
     const finishRound = () => {
       roundComplete = false;
       sandbox.classList.add('completing', 'portal-flash');
-      setPortal('MELTING...', 'all five pieces are becoming something new');
       setTimeout(showCreature, 720);
     };
 
@@ -169,40 +206,6 @@
       });
     };
 
-    const restartPlay = () => {
-      if (!roundComplete || resetting) return;
-      resetting = true;
-      roundComplete = false;
-      sandbox.classList.add('resetting');
-      sandbox.classList.remove('complete');
-      creatureStage.classList.remove('visible');
-      creatureStage.classList.add('exiting');
-      setPortal('MELTING...', 'turning possibility back into pieces');
-      if (portal) portal.tabIndex = -1;
-
-      setTimeout(() => {
-        creatureStage.innerHTML = '';
-        creatureStage.className = 'play-creature';
-        currentCreatureIndex = (currentCreatureIndex + 1) % creatureOrder.length;
-        transformed = 0;
-        restorePieces();
-        sandbox.classList.remove('resetting', 'completing', 'portal-ready', 'portal-flash');
-        setTimeout(() => {
-          openingState();
-          if (portal) portal.setAttribute('aria-label', 'Melting pot');
-          resetting = false;
-        }, pieces.length * 90 + 260);
-      }, 520);
-    };
-
-    portal?.addEventListener('click', restartPlay);
-    creatureStage.addEventListener('click', restartPlay);
-    portal?.addEventListener('keydown', e => {
-      if ((e.key === 'Enter' || e.key === ' ') && roundComplete) {
-        e.preventDefault();
-        restartPlay();
-      }
-    });
 
     pieces.forEach(piece => {
       let drag = null;
@@ -212,7 +215,7 @@
         e.preventDefault();
         const pr = piece.getBoundingClientRect();
         drag = { id: e.pointerId, ox: e.clientX - pr.left, oy: e.clientY - pr.top };
-        piece.setPointerCapture(e.pointerId);
+        try { piece.setPointerCapture(e.pointerId); } catch (_) {}
         piece.style.zIndex = 30;
         piece.style.transform = 'rotate(0deg)';
       });
@@ -237,10 +240,10 @@
         else setPortal('MELTING POT', `${transformed} of ${pieces.length} pieces are melting`);
       });
 
-      const end = e => {
+      const end = (e, cancelled = false) => {
         if (!drag || e.pointerId !== drag.id) return;
         try { piece.releasePointerCapture(e.pointerId); } catch (_) {}
-        const shouldAbsorb = inPortal(piece);
+        const shouldAbsorb = !cancelled && inPortal(piece);
         piece.style.zIndex = 3;
         drag = null;
 
@@ -253,8 +256,8 @@
         }
       };
 
-      piece.addEventListener('pointerup', end);
-      piece.addEventListener('pointercancel', end);
+      piece.addEventListener('pointerup', e => end(e, false));
+      piece.addEventListener('pointercancel', e => end(e, true));
     });
   }
 
@@ -307,7 +310,7 @@
       e.preventDefault();
       const br = b.getBoundingClientRect();
       active = { b, id: e.pointerId, ox: e.clientX - br.left, oy: e.clientY - br.top };
-      b.setPointerCapture(e.pointerId);
+      try { b.setPointerCapture(e.pointerId); } catch (_) {}
       b.classList.add('dragging');
     });
 
@@ -320,9 +323,17 @@
       b.style.top = `${y}px`;
     });
 
-    const finish = e => {
+    const finish = (e, cancelled = false) => {
       if (!active || active.b !== b || e.pointerId !== active.id) return;
       try { b.releasePointerCapture(e.pointerId); } catch (_) {}
+
+      if (cancelled) {
+        b.classList.remove('dragging');
+        active = null;
+        place(b, true);
+        return;
+      }
+
       const x = parseFloat(b.style.left) || 0;
       const y = parseFloat(b.style.top) || 0;
       const wc = Math.max(0, Math.min(COLS - 1, Math.round(x / (metrics.cw + metrics.gap))));
@@ -335,8 +346,8 @@
       place(b, true);
     };
 
-    b.addEventListener('pointerup', finish);
-    b.addEventListener('pointercancel', finish);
+    b.addEventListener('pointerup', e => finish(e, false));
+    b.addEventListener('pointercancel', e => finish(e, true));
 
     b.addEventListener('keydown', e => {
       const dirs = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };

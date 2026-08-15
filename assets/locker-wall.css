@@ -50,8 +50,8 @@
 
 .locker--why .locker-main{margin:0;font-size:clamp(1.1rem,1.5vw,1.35rem);font-weight:800;line-height:1.22;letter-spacing:-.02em}
 .locker-lines{margin:8px 0 0;font-size:clamp(.9rem,1.1vw,1rem);font-weight:700;line-height:1.5;opacity:.85}
-.locker-desc{margin:0;font-size:clamp(.8rem,.95vw,.9rem);line-height:1.45;opacity:.62}
-.locker-emph{margin:10px 0 0;font-size:clamp(.92rem,1.05vw,1.02rem);font-weight:800;color:#6b3570}
+.locker-desc{margin:0;font-size:clamp(1rem,1.2vw,1.15rem);line-height:1.5;opacity:.7}
+.locker-emph{margin:12px 0 0;font-size:clamp(1.05rem,1.25vw,1.2rem);font-weight:800;color:#6b3570}
 
 @keyframes locker-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.012)}}
 @keyframes locker-breathe-strong{0%,100%{transform:scale(1)}50%{transform:scale(1.022)}}

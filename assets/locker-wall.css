@@ -1,6 +1,8 @@
 /* "The official frame." — hide-and-seek locker wall replacing the old facts-grid table. */
 
-#course h2.course-lead{margin:0 0 22px;font-size:clamp(1.6rem,2.6vw,2.3rem);font-weight:750;line-height:1.2;letter-spacing:-.015em;max-width:26ch}
+/* course-lead now intentionally left unstyled here: it inherits the shared
+   .course-inner>h2 size so "Some doors matter more than others." matches
+   "Same course." and "Register through:" in weight and scale. */
 
 .locker-wall{
   display:grid;
@@ -150,7 +152,15 @@
   .locker--open{padding:18px}
   .locker-sub{max-width:none}
   .locker-why-cols{grid-template-columns:1fr;row-gap:14px;margin-top:8px}
-  #course h2.course-lead{font-size:1.5rem;margin-bottom:16px}
+}
+
+/* "Keep scrolling" cues at the end of the idea and locker-wall sections, so
+   neither reads as the end of the page. */
+.idea-section{flex-direction:column}
+.section-cta{align-self:center;margin-top:40px}
+
+@media (max-width:640px){
+  .section-cta{margin-top:30px}
 }
 
 @media (prefers-reduced-motion:reduce){

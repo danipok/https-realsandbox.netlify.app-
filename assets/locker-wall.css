@@ -121,14 +121,14 @@
 .locker--credits .locker-content-value{color:#b98722}
 .locker--language .locker-content-value{color:#6f8a2a}
 .locker--assessment .locker-content-value{color:#4457a6}
-.locker--organiser .locker-content-value,.locker--facilitators .locker-content-value{color:#6b3570}
+.locker--host .locker-content-value,.locker--facilitators .locker-content-value{color:#6b3570}
 
 /* A little handmade, off-grid tilt on the closed doors. */
 .locker--code{transform:rotate(-1.1deg)}
 .locker--credits{transform:rotate(.9deg)}
 .locker--language{transform:rotate(-.7deg)}
 .locker--assessment{transform:rotate(1deg)}
-.locker--organiser{transform:rotate(-.9deg)}
+.locker--host{transform:rotate(-.9deg)}
 .locker--facilitators{transform:rotate(1.1deg)}
 .locker--closed.is-open{transform:none}
 
@@ -136,7 +136,7 @@
   .locker-wall{grid-template-columns:repeat(4,1fr)}
   .locker--how,.locker--when{grid-column:span 4;grid-row:span 2}
   .locker--why{grid-column:span 4;grid-row:span 1}
-  .locker--language,.locker--assessment,.locker--organiser{grid-column:span 2;grid-row:span 1}
+  .locker--language,.locker--assessment,.locker--host{grid-column:span 2;grid-row:span 1}
   .locker--code,.locker--credits,.locker--facilitators{grid-column:span 1;grid-row:span 1}
 }
 
@@ -146,7 +146,7 @@
   .locker--code,.locker--credits{grid-column:span 2;grid-row:auto;max-width:82%}
   .locker--code{margin-right:auto}
   .locker--credits{margin-left:auto}
-  .locker--language,.locker--assessment,.locker--organiser,.locker--facilitators{grid-column:span 1;grid-row:auto}
+  .locker--language,.locker--assessment,.locker--host,.locker--facilitators{grid-column:span 1;grid-row:auto}
   .locker--open{padding:18px}
   .locker-sub{max-width:none}
   .locker-why-cols{grid-template-columns:1fr;row-gap:14px;margin-top:8px}
@@ -156,5 +156,5 @@
 @media (prefers-reduced-motion:reduce){
   .locker--how,.locker--when,.locker--why{animation:none}
   .locker-door,.locker-panel{transition:none}
-  .locker--code,.locker--credits,.locker--language,.locker--assessment,.locker--organiser,.locker--facilitators{transform:none}
+  .locker--code,.locker--credits,.locker--language,.locker--assessment,.locker--host,.locker--facilitators{transform:none}
 }

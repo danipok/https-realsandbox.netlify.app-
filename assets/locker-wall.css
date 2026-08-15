@@ -1,0 +1,156 @@
+/* "The official frame." — hide-and-seek locker wall replacing the old facts-grid table. */
+
+.course-subline{margin:-20px 0 34px;font-size:clamp(1rem,1.3vw,1.25rem);font-weight:600;opacity:.55;letter-spacing:-.01em}
+
+.locker-wall{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  grid-auto-rows:minmax(92px,auto);
+  grid-auto-flow:dense;
+  gap:14px;
+  margin-bottom:20px;
+}
+
+.locker{
+  position:relative;
+  border-radius:18px;
+  font-family:inherit;
+  color:var(--ink);
+  overflow:hidden;
+  text-align:left;
+}
+
+/* Open lockers */
+.locker--open{
+  background:#fff;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  padding:22px 24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  border-radius:22px;
+}
+.locker--how{grid-column:span 3;grid-row:span 2;background:linear-gradient(175deg,rgba(74,166,181,.12),rgba(74,166,181,.03) 65%);border-color:rgba(74,166,181,.38)}
+.locker--when{grid-column:span 3;grid-row:span 2;background:linear-gradient(175deg,rgba(239,138,61,.14),rgba(239,138,61,.03) 65%);border-color:rgba(239,138,61,.42)}
+.locker--why{grid-column:span 4;grid-row:span 2;background:linear-gradient(175deg,rgba(139,75,143,.11),rgba(139,75,143,.03) 65%);border-color:rgba(139,75,143,.35)}
+
+.locker-label{margin:0 0 8px;font-size:11px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+.locker--how .locker-label{color:#2f7a89}
+.locker--when .locker-label{color:#c96a1f}
+.locker--why .locker-label{color:#6b3570}
+
+.locker-main{margin:0;font-size:clamp(1.5rem,2.6vw,2.1rem);font-weight:820;line-height:1.08;letter-spacing:-.03em}
+.locker-sub{margin:12px 0 0;font-size:clamp(.95rem,1.1vw,1.05rem);line-height:1.4;opacity:.72;max-width:34ch}
+.locker-sub strong{opacity:1;color:#2f7a89}
+
+.locker--when .locker-main{font-size:clamp(1.3rem,2vw,1.65rem);font-weight:760;opacity:.7}
+.locker-time{margin:10px 0 0;font-size:clamp(2rem,3.6vw,2.9rem);font-weight:880;letter-spacing:-.03em;color:#c96a1f;line-height:1.02}
+
+.locker--why .locker-main{font-size:clamp(1.25rem,1.9vw,1.6rem);font-weight:800;line-height:1.18;letter-spacing:-.02em;max-width:26ch}
+.locker-lines{margin:10px 0 0;font-size:clamp(1rem,1.25vw,1.1rem);font-weight:700;line-height:1.55;opacity:.85}
+.locker-desc{margin:12px 0 0;font-size:clamp(.85rem,1vw,.94rem);line-height:1.48;opacity:.62;max-width:48ch}
+.locker-emph{margin:12px 0 0;font-size:clamp(1rem,1.2vw,1.1rem);font-weight:800;color:#6b3570}
+
+@keyframes locker-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.012)}}
+@keyframes locker-breathe-strong{0%,100%{transform:scale(1)}50%{transform:scale(1.022)}}
+.locker--how{animation:locker-breathe 6.2s ease-in-out infinite}
+.locker--when{animation:locker-breathe-strong 5.4s ease-in-out infinite .6s}
+.locker--why{animation:locker-breathe 7s ease-in-out infinite 1.3s}
+
+/* Closed lockers */
+.locker--closed{
+  background:var(--paper);
+  border:1px solid var(--line);
+  padding:0;
+  min-height:92px;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  perspective:700px;
+  min-width:0;
+}
+.locker--closed:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.locker--closed.is-open{cursor:default}
+
+.locker-door{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:16px 17px;
+  background:var(--paper);
+  border-radius:inherit;
+  transform-origin:left center;
+  transition:transform .34s cubic-bezier(.2,.8,.2,1),opacity .3s ease,box-shadow .2s ease;
+  box-shadow:inset 0 0 0 1px rgba(21,21,21,.05);
+}
+.locker-tag{font-size:11px;font-weight:850;letter-spacing:.09em;text-transform:uppercase}
+.locker-peek{align-self:flex-end;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:lowercase;opacity:.38;transition:opacity .2s ease}
+
+@media (hover:hover) and (pointer:fine){
+  .locker--closed:not(.is-open):hover .locker-door{transform:translateX(3px);box-shadow:inset 0 0 0 1px rgba(21,21,21,.05),0 6px 14px rgba(50,38,20,.1)}
+  .locker--closed:not(.is-open):hover .locker-peek{opacity:.8}
+}
+
+.locker-panel{
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows .38s cubic-bezier(.2,.8,.2,1);
+  padding:0 17px;
+}
+.locker-content{
+  overflow:hidden;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:16px 0;
+}
+.locker-content-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.5}
+.locker-content-value{margin-top:8px;font-size:clamp(1.05rem,1.6vw,1.35rem);font-weight:750;line-height:1.3}
+
+.locker.is-open .locker-door{transform:rotateY(68deg) translateX(2px);opacity:0;pointer-events:none}
+.locker.is-open .locker-panel{grid-template-rows:1fr}
+.locker.is-snoop .locker-door{transition-duration:.5s;transform:rotateY(85deg) translateX(6px) scale(1.03)}
+.locker.is-snoop .locker-panel{transition-duration:.5s}
+
+.locker--code .locker-content-value{color:#c94f66}
+.locker--credits .locker-content-value{color:#b98722}
+.locker--language .locker-content-value{color:#6f8a2a}
+.locker--assessment .locker-content-value{color:#4457a6}
+.locker--organiser .locker-content-value,.locker--facilitators .locker-content-value{color:#6b3570}
+
+/* A little handmade, off-grid tilt on the closed doors. */
+.locker--code{transform:rotate(-1.1deg)}
+.locker--credits{transform:rotate(.9deg)}
+.locker--language{transform:rotate(-.7deg)}
+.locker--assessment{transform:rotate(1deg)}
+.locker--organiser{transform:rotate(-.9deg)}
+.locker--facilitators{transform:rotate(1.1deg)}
+.locker--closed.is-open{transform:none}
+
+@media (max-width:1000px){
+  .locker-wall{grid-template-columns:repeat(4,1fr)}
+  .locker--how,.locker--when,.locker--why{grid-column:span 4;grid-row:span 2}
+  .locker--language,.locker--assessment,.locker--organiser{grid-column:span 2;grid-row:span 1}
+  .locker--code,.locker--credits,.locker--facilitators{grid-column:span 1;grid-row:span 1}
+}
+
+@media (max-width:640px){
+  .locker-wall{grid-template-columns:repeat(2,1fr);grid-auto-flow:row;gap:12px}
+  .locker--how,.locker--when,.locker--why{grid-column:span 2;grid-row:auto}
+  .locker--code,.locker--credits{grid-column:span 2;grid-row:auto;max-width:82%}
+  .locker--code{margin-right:auto}
+  .locker--credits{margin-left:auto}
+  .locker--language,.locker--assessment,.locker--organiser,.locker--facilitators{grid-column:span 1;grid-row:auto}
+  .locker--open{padding:20px}
+  .locker-sub,.locker-desc{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .locker--how,.locker--when,.locker--why{animation:none}
+  .locker-door,.locker-panel{transition:none}
+  .locker--code,.locker--credits,.locker--language,.locker--assessment,.locker--organiser,.locker--facilitators{transform:none}
+}

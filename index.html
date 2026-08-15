@@ -23,8 +23,10 @@
   <link rel="stylesheet" href="assets/experience-v3.css" />
   <link rel="stylesheet" href="assets/hero-schedule.css" />
   <link rel="stylesheet" href="assets/playful-heading.css" />
+  <link rel="stylesheet" href="assets/locker-wall.css" />
   <script defer src="assets/script-v2.js"></script>
   <script defer src="assets/experience-v3.js"></script>
+  <script defer src="assets/locker-wall.js"></script>
 </head>
 <body>
   <main>
@@ -82,16 +84,106 @@
     <section class="screen course-section" id="course">
       <div class="course-inner">
         <h2 class="reveal">The official frame.</h2>
-        <dl class="facts-grid reveal">
-          <div><dt>Course</dt><dd>Sandbox for Creative Entrepreneurs</dd></div>
-          <div><dt>Course code</dt><dd>18034</dd></div>
-          <div><dt>Scope</dt><dd>5 ECTS</dd></div>
-          <div><dt>Language</dt><dd>English</dd></div>
-          <div><dt>Assessment</dt><dd>Pass / Fail</dd></div>
-          <div><dt>Course schedule</dt><dd>26 Oct 2026 – 17 Dec 2026<br />Thursdays · 12:30–15:45</dd></div>
-          <div><dt>Organiser</dt><dd>Entrepreneurship and Management, Helsinki</dd></div>
-          <div><dt>Facilitators</dt><dd>Daniil Pokidko<br />Ronny Eriksson</dd></div>
-        </dl>
+        <p class="course-subline reveal">Some doors matter more than others.</p>
+        <div class="locker-wall reveal" aria-label="Course details. Three highlighted panels are always open; the smaller buttons open to reveal more.">
+          <div class="locker locker--open locker--how">
+            <p class="locker-label">How</p>
+            <p class="locker-main">Fully online.<br />Fully live.</p>
+            <p class="locker-sub">This is not a self-paced online course.<br /><strong>You need to be there.</strong></p>
+          </div>
+
+          <button type="button" class="locker locker--closed locker--code" data-locker aria-expanded="false" aria-label="Open to reveal the course code" title="Click to open &mdash; double-click to snoop">
+            <span class="locker-door" aria-hidden="true">
+              <span class="locker-tag">Code</span>
+              <span class="locker-peek">peek</span>
+            </span>
+            <span class="locker-panel">
+              <span class="locker-content" aria-hidden="true">
+                <span class="locker-content-label">Course code</span>
+                <span class="locker-content-value">18034</span>
+              </span>
+            </span>
+          </button>
+
+          <div class="locker locker--open locker--when">
+            <p class="locker-label">When</p>
+            <p class="locker-main">26 Oct – 17 Dec 2026</p>
+            <p class="locker-time">Thursdays · 12:30–15:45</p>
+          </div>
+
+          <button type="button" class="locker locker--closed locker--credits" data-locker aria-expanded="false" aria-label="Open to reveal the credits" title="Click to open &mdash; double-click to snoop">
+            <span class="locker-door" aria-hidden="true">
+              <span class="locker-tag">Credits</span>
+              <span class="locker-peek">peek</span>
+            </span>
+            <span class="locker-panel">
+              <span class="locker-content" aria-hidden="true">
+                <span class="locker-content-label">Credits</span>
+                <span class="locker-content-value">5 ECTS</span>
+              </span>
+            </span>
+          </button>
+
+          <div class="locker locker--open locker--why">
+            <p class="locker-label">Important</p>
+            <p class="locker-main">What happens in a session happens once.</p>
+            <p class="locker-lines">Not later.<br />Not in a recording.<br />Not in a slide deck.</p>
+            <p class="locker-desc">The course is experiential. Materials, insights and learning are gathered through participation — by being there when things happen.</p>
+            <p class="locker-emph">Participation is the material.</p>
+          </div>
+
+          <button type="button" class="locker locker--closed locker--language" data-locker aria-expanded="false" aria-label="Open to reveal the language" title="Click to open &mdash; double-click to snoop">
+            <span class="locker-door" aria-hidden="true">
+              <span class="locker-tag">Language</span>
+              <span class="locker-peek">peek</span>
+            </span>
+            <span class="locker-panel">
+              <span class="locker-content" aria-hidden="true">
+                <span class="locker-content-label">Language</span>
+                <span class="locker-content-value">English</span>
+              </span>
+            </span>
+          </button>
+
+          <button type="button" class="locker locker--closed locker--assessment" data-locker aria-expanded="false" aria-label="Open to reveal the assessment" title="Click to open &mdash; double-click to snoop">
+            <span class="locker-door" aria-hidden="true">
+              <span class="locker-tag">Assessment</span>
+              <span class="locker-peek">peek</span>
+            </span>
+            <span class="locker-panel">
+              <span class="locker-content" aria-hidden="true">
+                <span class="locker-content-label">Assessment</span>
+                <span class="locker-content-value">Pass / Fail</span>
+              </span>
+            </span>
+          </button>
+
+          <button type="button" class="locker locker--closed locker--organiser" data-locker aria-expanded="false" aria-label="Open to reveal the organiser" title="Click to open &mdash; double-click to snoop">
+            <span class="locker-door" aria-hidden="true">
+              <span class="locker-tag">Who</span>
+              <span class="locker-peek">peek</span>
+            </span>
+            <span class="locker-panel">
+              <span class="locker-content" aria-hidden="true">
+                <span class="locker-content-label">Organiser</span>
+                <span class="locker-content-value">Entrepreneurship and Management, Helsinki</span>
+              </span>
+            </span>
+          </button>
+
+          <button type="button" class="locker locker--closed locker--facilitators" data-locker aria-expanded="false" aria-label="Open to reveal the facilitators" title="Click to open &mdash; double-click to snoop">
+            <span class="locker-door" aria-hidden="true">
+              <span class="locker-tag">Who</span>
+              <span class="locker-peek">peek</span>
+            </span>
+            <span class="locker-panel">
+              <span class="locker-content" aria-hidden="true">
+                <span class="locker-content-label">Facilitators</span>
+                <span class="locker-content-value">Daniil Pokidko<br />Ronny Eriksson</span>
+              </span>
+            </span>
+          </button>
+        </div>
       </div>
     </section>
 

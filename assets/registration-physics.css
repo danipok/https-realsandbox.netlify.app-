@@ -1,0 +1,26 @@
+/* Smaller, brick-proportioned registration blocks. Falling-brick physics is added by
+   registration-physics.js, which switches the container into "physics-active" mode.
+   Without JS, or under prefers-reduced-motion, this is just a smaller static grid. */
+
+.registration-block{min-height:88px;padding:10px 12px;border-radius:10px;align-items:center}
+.registration-block strong{font-size:clamp(.78rem,1vw,.92rem);line-height:1.2}
+
+.registration-grid.physics-active{display:block;position:relative;overflow:visible}
+.registration-grid.physics-active .registration-block{
+  position:absolute;
+  left:0;
+  top:0;
+  margin:0;
+  transform-origin:50% 50%;
+  will-change:transform;
+}
+
+@media (max-width:640px){
+  .registration-block{min-height:72px;padding:9px 10px}
+  .registration-block strong{font-size:.76rem}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .registration-grid.physics-active{display:grid}
+  .registration-grid.physics-active .registration-block{position:static;transform:none}
+}

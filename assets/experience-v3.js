@@ -12,7 +12,8 @@
     Values: 'What would you refuse to trade away?',
     People: 'Who else could change the game?',
     Potential: 'What becomes possible if you stop asking permission?',
-    Ideas: 'What if the first idea is only a doorway?'
+    Ideas: 'What if the first idea is only a doorway?',
+    Curiosity: 'What if not knowing yet is the interesting part?'
   };
 
   const pieceName = piece => piece.querySelector('small')?.textContent?.trim() || 'Idea';

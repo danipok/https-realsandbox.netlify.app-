@@ -20,7 +20,7 @@
 
 .puzzle-piece{width:142px;height:118px;padding:18px;z-index:4;border:0;box-shadow:0 14px 28px rgba(50,38,20,.13);transition:box-shadow .18s ease,filter .18s ease,opacity .18s ease;display:flex;flex-direction:column;justify-content:space-between}
 .puzzle-piece::before,.puzzle-piece::after{display:none!important}
-.puzzle-piece:hover{filter:saturate(1.08);box-shadow:0 18px 34px rgba(50,38,20,.18)}
+@media (hover:hover) and (pointer:fine){.puzzle-piece:hover{filter:saturate(1.08);box-shadow:0 18px 34px rgba(50,38,20,.18)}}
 .puzzle-piece small{font-size:11px;letter-spacing:.1em}.puzzle-piece strong{font-size:34px}
 .p1{left:3%;top:16%;background:#e85d75;border-radius:48% 52% 58% 42% / 57% 38% 62% 43%;transform:rotate(-8deg)}
 .p2{right:4%;top:13%;background:#ef8a3d;border-radius:999px;transform:rotate(7deg)}

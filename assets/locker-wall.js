@@ -36,4 +36,30 @@
       setOpen(true, true);
     });
   });
+
+  // Settle the open lockers' heartbeat pulse once the visitor has had time to
+  // notice it, or as soon as they open any locker - whichever happens first.
+  const wall = document.querySelector('.locker-wall');
+  if (wall) {
+    let settleTimer = null;
+    const settle = () => {
+      wall.classList.add('settled');
+      clearTimeout(settleTimer);
+    };
+
+    if ('IntersectionObserver' in window) {
+      const wallObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !settleTimer) {
+            settleTimer = setTimeout(settle, 9000);
+          }
+        });
+      }, { threshold: .3 });
+      wallObserver.observe(wall);
+    } else {
+      settle();
+    }
+
+    lockers.forEach(locker => locker.addEventListener('click', settle, { once: true }));
+  }
 })();

@@ -87,3 +87,9 @@
   68%{opacity:.62;filter:blur(1px);transform:translate(-28vw,-72%) scale(.9) rotate(-4deg)}
   100%{opacity:0;filter:blur(8px);transform:translate(-72vw,-80%) scale(.7) rotate(-8deg)}
 }
+/* journey-4x2.css turns off .play-creature.escaping under reduced-motion, but the
+   attribute selector above is more specific and was winning regardless - so the
+   shark's exit kept animating for reduced-motion users. Match it explicitly. */
+@media(prefers-reduced-motion:reduce){
+  .play-creature[data-creature="shark"].escaping{animation:none}
+}

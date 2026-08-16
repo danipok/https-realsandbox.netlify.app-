@@ -61,6 +61,13 @@
 .locker--when{animation:locker-breathe-strong 5.4s ease-in-out infinite .6s}
 .locker--why{animation:locker-breathe 7s ease-in-out infinite 1.3s}
 
+/* Once the visitor has had time to notice the pulse (or opens a locker,
+   whichever comes first - see locker-wall.js), it settles rather than
+   pulsing forever. */
+.locker-wall.settled .locker--how,
+.locker-wall.settled .locker--when,
+.locker-wall.settled .locker--why{animation:none}
+
 /* Closed lockers */
 .locker--closed{
   background:var(--paper);

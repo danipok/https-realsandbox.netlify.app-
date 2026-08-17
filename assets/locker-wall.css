@@ -36,7 +36,6 @@
 .locker--how{grid-column:span 3;grid-row:span 2;background:linear-gradient(175deg,rgba(74,166,181,.12),rgba(74,166,181,.03) 65%);border-color:rgba(74,166,181,.38)}
 .locker--when{grid-column:span 3;grid-row:span 2;background:linear-gradient(175deg,rgba(239,138,61,.14),rgba(239,138,61,.03) 65%);border-color:rgba(239,138,61,.42)}
 .locker--why{grid-column:span 6;grid-row:span 1;display:block;background:linear-gradient(100deg,rgba(139,75,143,.11),rgba(139,75,143,.03) 65%);border-color:rgba(139,75,143,.35)}
-.locker-why-cols{display:grid;grid-template-columns:repeat(2,1fr);column-gap:32px;align-items:start;margin-top:10px}
 
 .locker-label{margin:0 0 8px;font-size:11px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
 .locker--how .locker-label{color:#2f7a89}
@@ -52,7 +51,6 @@
 
 .locker--why .locker-main{margin:0;font-size:clamp(1.1rem,1.5vw,1.35rem);font-weight:800;line-height:1.22;letter-spacing:-.02em}
 .locker-lines{margin:8px 0 0;font-size:clamp(.9rem,1.1vw,1rem);font-weight:700;line-height:1.5;opacity:.85}
-.locker-desc{margin:0;font-size:clamp(1rem,1.2vw,1.15rem);line-height:1.5;opacity:.7}
 .locker-emph{margin:12px 0 0;font-size:clamp(1.05rem,1.25vw,1.2rem);font-weight:800;color:#6b3570}
 
 @keyframes locker-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.012)}}
@@ -131,6 +129,7 @@
 .locker--language .locker-content-value{color:#6f8a2a}
 .locker--assessment .locker-content-value{color:#4457a6}
 .locker--host .locker-content-value,.locker--facilitators .locker-content-value{color:#6b3570}
+.locker--facilitators .locker-content-value{font-size:clamp(.8rem,1.15vw,.95rem);white-space:nowrap}
 
 /* A little handmade, off-grid tilt on the closed doors. */
 .locker--code{transform:rotate(-1.1deg)}
@@ -152,13 +151,9 @@
 @media (max-width:640px){
   .locker-wall{grid-template-columns:repeat(2,1fr);grid-auto-flow:row;gap:12px}
   .locker--how,.locker--when,.locker--why{grid-column:span 2;grid-row:auto}
-  .locker--code,.locker--credits{grid-column:span 2;grid-row:auto;max-width:82%}
-  .locker--code{margin-right:auto}
-  .locker--credits{margin-left:auto}
-  .locker--language,.locker--assessment,.locker--host,.locker--facilitators{grid-column:span 1;grid-row:auto}
+  .locker--code,.locker--credits,.locker--language,.locker--assessment,.locker--host,.locker--facilitators{grid-column:span 1;grid-row:auto}
   .locker--open{padding:18px}
   .locker-sub{max-width:none}
-  .locker-why-cols{grid-template-columns:1fr;row-gap:14px;margin-top:8px}
 }
 
 /* "Keep scrolling" cues at the end of the idea and locker-wall sections, so

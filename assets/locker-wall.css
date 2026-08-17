@@ -33,14 +33,13 @@
   justify-content:center;
   border-radius:22px;
 }
-.locker--how{grid-column:span 3;grid-row:span 2;background:linear-gradient(175deg,rgba(74,166,181,.12),rgba(74,166,181,.03) 65%);border-color:rgba(74,166,181,.38)}
 .locker--when{grid-column:span 3;grid-row:span 2;background:linear-gradient(175deg,rgba(239,138,61,.14),rgba(239,138,61,.03) 65%);border-color:rgba(239,138,61,.42)}
-.locker--why{grid-column:span 6;grid-row:span 1;display:block;background:linear-gradient(100deg,rgba(139,75,143,.11),rgba(139,75,143,.03) 65%);border-color:rgba(139,75,143,.35)}
+.locker--how{grid-column:span 6;grid-row:span 1;display:block;background:linear-gradient(175deg,rgba(74,166,181,.12),rgba(74,166,181,.03) 65%);border-color:rgba(74,166,181,.38)}
+.locker-cols{display:grid;grid-template-columns:repeat(2,1fr);column-gap:32px;align-items:start;margin-top:10px}
 
 .locker-label{margin:0 0 8px;font-size:11px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
 .locker--how .locker-label{color:#2f7a89}
 .locker--when .locker-label{color:#c96a1f}
-.locker--why .locker-label{color:#6b3570}
 
 .locker-main{margin:0;font-size:clamp(1.4rem,2.4vw,1.9rem);font-weight:820;line-height:1.1;letter-spacing:-.03em}
 .locker-sub{margin:10px 0 0;font-size:clamp(.95rem,1.1vw,1.05rem);line-height:1.4;opacity:.72;max-width:34ch}
@@ -49,22 +48,20 @@
 .locker--when .locker-main{font-size:clamp(1.2rem,1.8vw,1.45rem);font-weight:760;opacity:.7}
 .locker-time{margin:8px 0 0;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:880;letter-spacing:-.03em;color:#c96a1f;line-height:1.02}
 
-.locker--why .locker-main{margin:0;font-size:clamp(1.1rem,1.5vw,1.35rem);font-weight:800;line-height:1.22;letter-spacing:-.02em}
+.locker-main--secondary{margin:0;font-size:clamp(1.1rem,1.5vw,1.35rem);font-weight:800;line-height:1.22;letter-spacing:-.02em}
 .locker-lines{margin:8px 0 0;font-size:clamp(.9rem,1.1vw,1rem);font-weight:700;line-height:1.5;opacity:.85}
-.locker-emph{margin:12px 0 0;font-size:clamp(1.05rem,1.25vw,1.2rem);font-weight:800;color:#6b3570}
+.locker-emph{margin:12px 0 0;font-size:clamp(1.05rem,1.25vw,1.2rem);font-weight:800;color:#2f7a89}
 
 @keyframes locker-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.012)}}
 @keyframes locker-breathe-strong{0%,100%{transform:scale(1)}50%{transform:scale(1.022)}}
 .locker--how{animation:locker-breathe 6.2s ease-in-out infinite}
 .locker--when{animation:locker-breathe-strong 5.4s ease-in-out infinite .6s}
-.locker--why{animation:locker-breathe 7s ease-in-out infinite 1.3s}
 
 /* Once the visitor has had time to notice the pulse (or opens a locker,
    whichever comes first - see locker-wall.js), it settles rather than
    pulsing forever. */
 .locker-wall.settled .locker--how,
-.locker-wall.settled .locker--when,
-.locker-wall.settled .locker--why{animation:none}
+.locker-wall.settled .locker--when{animation:none}
 
 /* Closed lockers */
 .locker--closed{
@@ -142,18 +139,19 @@
 
 @media (max-width:1000px){
   .locker-wall{grid-template-columns:repeat(4,1fr)}
-  .locker--how,.locker--when{grid-column:span 4;grid-row:span 2}
-  .locker--why{grid-column:span 4;grid-row:span 1}
+  .locker--when{grid-column:span 4;grid-row:span 2}
+  .locker--how{grid-column:span 4;grid-row:span 1}
   .locker--language,.locker--assessment,.locker--host{grid-column:span 2;grid-row:span 1}
   .locker--code,.locker--credits,.locker--facilitators{grid-column:span 1;grid-row:span 1}
 }
 
 @media (max-width:640px){
   .locker-wall{grid-template-columns:repeat(2,1fr);grid-auto-flow:row;gap:12px}
-  .locker--how,.locker--when,.locker--why{grid-column:span 2;grid-row:auto}
+  .locker--how,.locker--when{grid-column:span 2;grid-row:auto}
   .locker--code,.locker--credits,.locker--language,.locker--assessment,.locker--host,.locker--facilitators{grid-column:span 1;grid-row:auto}
   .locker--open{padding:18px}
   .locker-sub{max-width:none}
+  .locker-cols{grid-template-columns:1fr;row-gap:14px;margin-top:8px}
 }
 
 /* "Keep scrolling" cues at the end of the idea and locker-wall sections, so
@@ -166,7 +164,7 @@
 }
 
 @media (prefers-reduced-motion:reduce){
-  .locker--how,.locker--when,.locker--why{animation:none}
+  .locker--how,.locker--when{animation:none}
   .locker-door,.locker-panel{transition:none}
   .locker--code,.locker--credits,.locker--language,.locker--assessment,.locker--host,.locker--facilitators{transform:none}
 }

@@ -196,3 +196,60 @@
   .locker--code,.locker--credits{margin-top:42px}
   .section-cta{margin-top:14px}
 }
+
+/* Mobile four-box layout: Code+Language, Credits+Assessment, Host, Facilitators.
+   Desktop/tablet keep the six original lockers. */
+@media (max-width:640px){
+  .locker--language,.locker--assessment{display:none}
+  .locker--code,.locker--credits,.locker--host,.locker--facilitators{
+    min-height:112px;
+  }
+  .locker--code .locker-tag,.locker--credits .locker-tag{font-size:0}
+  .locker--code .locker-tag::after{
+    content:"Code + language";
+    font-size:11px;
+  }
+  .locker--credits .locker-tag::after{
+    content:"Credits + assessment";
+    font-size:11px;
+  }
+  .locker--code .locker-content,.locker--credits .locker-content{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    column-gap:12px;
+  }
+  .locker--code .locker-content::after{
+    content:"LANGUAGE\A English";
+    white-space:pre;
+    color:#6f8a2a;
+    font-size:1.03rem;
+    font-weight:750;
+    line-height:1.55;
+  }
+  .locker--credits .locker-content::after{
+    content:"ASSESSMENT\A Pass / Fail";
+    white-space:pre;
+    color:#4457a6;
+    font-size:1.03rem;
+    font-weight:750;
+    line-height:1.55;
+  }
+  .locker--code .locker-content::after,.locker--credits .locker-content::after{
+    letter-spacing:-.015em;
+  }
+  .locker--code .locker-content-label,.locker--credits .locker-content-label{
+    align-self:end;
+  }
+  .locker--code .locker-content-value,.locker--credits .locker-content-value{
+    grid-column:1;
+    margin-top:5px;
+    align-self:start;
+  }
+  .locker--code .locker-content::after,.locker--credits .locker-content::after{
+    grid-column:2;
+    grid-row:1 / span 2;
+    align-self:center;
+  }
+  .locker--host,.locker--facilitators{margin-top:0}
+}

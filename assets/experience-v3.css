@@ -93,3 +93,28 @@
 @media(prefers-reduced-motion:reduce){
   .play-creature[data-creature="shark"].escaping{animation:none}
 }
+
+/* Mobile viewport tuning: keep each major composition immediately visible instead
+   of spending the first screenful on inherited section padding. */
+.p1,.p2{top:4%}
+@media(max-width:640px){
+  .idea-section{
+    min-height:100svh;
+    padding:22px 16px 14px;
+    justify-content:flex-start;
+  }
+  .idea-layout{gap:10px}
+  .course-section{
+    min-height:100svh;
+    padding:18px 16px 0;
+    justify-content:flex-start;
+  }
+  .course-inner{
+    min-height:auto;
+    padding-top:0;
+    margin:0 auto;
+  }
+}
+@media(max-width:640px) and (orientation:landscape) and (max-height:520px){
+  .p1,.p2{top:0}
+}

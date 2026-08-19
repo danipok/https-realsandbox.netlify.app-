@@ -168,3 +168,31 @@
   .locker-door,.locker-panel{transition:none}
   .locker--code,.locker--credits,.locker--language,.locker--assessment,.locker--host,.locker--facilitators{transform:none}
 }
+
+/* Mobile density pass: preserve the desktop composition, but use the phone
+   viewport efficiently and reserve a real reveal slot for the Joulukalenteri line. */
+@media (max-width:640px){
+  .locker-wall{gap:10px;margin-bottom:12px}
+  .locker--open{padding:14px 16px}
+  .locker-cols{row-gap:10px;margin-top:6px}
+  .locker-sub{margin-top:8px;line-height:1.32}
+  .locker-main--secondary{font-size:clamp(1.02rem,4.6vw,1.18rem);line-height:1.16}
+  .locker-lines{
+    margin-top:7px;
+    font-size:0;
+    line-height:0;
+    white-space:nowrap;
+    opacity:.85;
+  }
+  .locker-lines::after{
+    content:"Not later · not recorded · no slide decks";
+    display:block;
+    font-size:clamp(.68rem,3.15vw,.82rem);
+    line-height:1.2;
+    font-weight:760;
+    letter-spacing:-.01em;
+  }
+  .locker-emph{margin-top:10px}
+  .locker--code,.locker--credits{margin-top:42px}
+  .section-cta{margin-top:14px}
+}

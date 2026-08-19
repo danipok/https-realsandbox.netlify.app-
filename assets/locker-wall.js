@@ -4,6 +4,8 @@
   const OPEN_DELAY = 260;
   const SNOOP_DURATION = 700;
 
+  const visibleLockers = () => Array.from(lockers).filter(locker => locker.offsetParent !== null);
+
   let surpriseRevealed = false;
   let placeSurprise = () => {};
   let checkAllOpen = () => {};
@@ -54,8 +56,11 @@
     wall.appendChild(surprise);
 
     placeSurprise = () => {
+      const activeLockers = visibleLockers();
+      if (!activeLockers.length) return;
+
       const wallRect = wall.getBoundingClientRect();
-      const lockerRects = Array.from(lockers, locker => locker.getBoundingClientRect());
+      const lockerRects = activeLockers.map(locker => locker.getBoundingClientRect());
       const left = Math.min(...lockerRects.map(rect => rect.left));
       const right = Math.max(...lockerRects.map(rect => rect.right));
       const top = Math.min(...lockerRects.map(rect => rect.top));
@@ -88,7 +93,8 @@
     };
 
     checkAllOpen = () => {
-      if (!surpriseRevealed && Array.from(lockers).every(locker => locker.getAttribute('aria-expanded') === 'true')) {
+      const activeLockers = visibleLockers();
+      if (!surpriseRevealed && activeLockers.length && activeLockers.every(locker => locker.getAttribute('aria-expanded') === 'true')) {
         revealSurprise();
       }
     };

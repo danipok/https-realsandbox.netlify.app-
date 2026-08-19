@@ -202,7 +202,7 @@
 @media (max-width:640px){
   .locker--language,.locker--assessment{display:none}
   .locker--code,.locker--credits,.locker--host,.locker--facilitators{
-    min-height:112px;
+    min-height:76px;
   }
   .locker--code .locker-tag,.locker--credits .locker-tag{font-size:0}
   .locker--code .locker-tag::after{
@@ -215,41 +215,57 @@
   }
   .locker--code .locker-content,.locker--credits .locker-content{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    align-items:center;
-    column-gap:12px;
-  }
-  .locker--code .locker-content::after{
-    content:"LANGUAGE\A English";
-    white-space:pre;
-    color:#6f8a2a;
-    font-size:1.03rem;
-    font-weight:750;
-    line-height:1.55;
-  }
-  .locker--credits .locker-content::after{
-    content:"ASSESSMENT\A Pass / Fail";
-    white-space:pre;
-    color:#4457a6;
-    font-size:1.03rem;
-    font-weight:750;
-    line-height:1.55;
-  }
-  .locker--code .locker-content::after,.locker--credits .locker-content::after{
-    letter-spacing:-.015em;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    grid-template-rows:auto auto;
+    align-content:center;
+    column-gap:8px;
+    padding:9px 0;
   }
   .locker--code .locker-content-label,.locker--credits .locker-content-label{
+    grid-column:1;
+    grid-row:1;
     align-self:end;
+    font-size:9px;
+    line-height:1.05;
+    letter-spacing:.075em;
+    white-space:normal;
   }
   .locker--code .locker-content-value,.locker--credits .locker-content-value{
     grid-column:1;
+    grid-row:2;
     margin-top:5px;
     align-self:start;
+    font-size:clamp(.92rem,4vw,1.05rem);
+    line-height:1.1;
+    white-space:nowrap;
+  }
+  .locker--code .locker-content::before,.locker--credits .locker-content::before{
+    grid-column:2;
+    grid-row:1;
+    align-self:end;
+    font-size:9px;
+    font-weight:800;
+    line-height:1.05;
+    letter-spacing:.075em;
+    text-transform:uppercase;
+    opacity:.5;
+    color:var(--ink);
   }
   .locker--code .locker-content::after,.locker--credits .locker-content::after{
     grid-column:2;
-    grid-row:1 / span 2;
-    align-self:center;
+    grid-row:2;
+    align-self:start;
+    margin-top:5px;
+    font-size:clamp(.88rem,3.7vw,1rem);
+    font-weight:750;
+    line-height:1.1;
+    letter-spacing:-.02em;
+    white-space:normal;
   }
-  .locker--host,.locker--facilitators{margin-top:0}
+  .locker--code .locker-content::before{content:"Language"}
+  .locker--code .locker-content::after{content:"English";color:#6f8a2a}
+  .locker--credits .locker-content::before{content:"Assessment"}
+  .locker--credits .locker-content::after{content:"Pass / Fail";color:#4457a6}
+  .locker--host,.locker--facilitators{margin-top:0;min-height:76px}
+  .locker--host .locker-content,.locker--facilitators .locker-content{padding:10px 0}
 }

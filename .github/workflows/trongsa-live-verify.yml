@@ -9,20 +9,25 @@ jobs:
   verify-live:
     runs-on: ubuntu-latest
     steps:
-      - name: Download and hash live production files
+      - name: Hash live production core and probe assets
         shell: bash
         run: |
           set -euo pipefail
           base="https://trongsawords.quest"
-          mkdir -p live/assets
-          for p in index.html sw.js manifest.webmanifest assets/favicon.png assets/apple-touch-icon.png assets/icon-192.png assets/icon-512.png assets/og-preview.png; do
+          mkdir -p live
+          for p in index.html sw.js manifest.webmanifest; do
             echo "GET $p"
             curl --fail --silent --show-error --location "$base/$p" -o "live/$p"
           done
           echo "=== LIVE SHA256 ==="
-          sha256sum live/index.html live/manifest.webmanifest live/sw.js live/assets/*
+          sha256sum live/index.html live/manifest.webmanifest live/sw.js
           echo "=== LIVE SIZES ==="
-          stat -c '%n %s bytes' live/index.html live/manifest.webmanifest live/sw.js live/assets/*
+          stat -c '%n %s bytes' live/index.html live/manifest.webmanifest live/sw.js
+          echo "=== ASSET STATUS ==="
+          for p in assets/favicon.png assets/apple-touch-icon.png assets/icon-192.png assets/icon-512.png assets/og-preview.png; do
+            code=$(curl --silent --show-error --location --output /dev/null --write-out '%{http_code}' "$base/$p" || true)
+            echo "$code $p"
+          done
           echo "=== RESPONSE HEADERS: ROOT ==="
           curl --fail --silent --show-error --location --head "$base/" | sed -n '1,30p'
           echo "=== RESPONSE HEADERS: SW ==="

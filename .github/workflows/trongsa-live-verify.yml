@@ -9,28 +9,21 @@ jobs:
   verify-live:
     runs-on: ubuntu-latest
     steps:
-      - name: Hash live production core and probe assets
+      - name: Compare current and prior Netlify deploys
         shell: bash
         run: |
-          set -euo pipefail
-          base="https://trongsawords.quest"
-          mkdir -p live
-          for p in index.html sw.js manifest.webmanifest; do
-            echo "GET $p"
-            curl --fail --silent --show-error --location "$base/$p" -o "live/$p"
+          set -u
+          for base in \
+            "https://trongsawords.quest" \
+            "https://6a8c8a3311a88f8a57894f49--trongsa-words.netlify.app" \
+            "https://6a8d16ae5b05b505fe0efe3e--trongsa-words.netlify.app"; do
+            echo "=== $base ==="
+            for p in index.html sw.js manifest.webmanifest assets/favicon.png assets/apple-touch-icon.png assets/icon-192.png assets/icon-512.png assets/og-preview.png; do
+              tmp=$(mktemp)
+              code=$(curl --silent --show-error --location --output "$tmp" --write-out '%{http_code}' "$base/$p" || true)
+              size=$(stat -c '%s' "$tmp" 2>/dev/null || echo 0)
+              sha=$(sha256sum "$tmp" 2>/dev/null | awk '{print $1}')
+              echo "$code $size $sha $p"
+              rm -f "$tmp"
+            done
           done
-          echo "=== LIVE SHA256 ==="
-          sha256sum live/index.html live/manifest.webmanifest live/sw.js
-          echo "=== LIVE SIZES ==="
-          stat -c '%n %s bytes' live/index.html live/manifest.webmanifest live/sw.js
-          echo "=== ASSET STATUS ==="
-          for p in assets/favicon.png assets/apple-touch-icon.png assets/icon-192.png assets/icon-512.png assets/og-preview.png; do
-            code=$(curl --silent --show-error --location --output /dev/null --write-out '%{http_code}' "$base/$p" || true)
-            echo "$code $p"
-          done
-          echo "=== RESPONSE HEADERS: ROOT ==="
-          curl --fail --silent --show-error --location --head "$base/" | sed -n '1,30p'
-          echo "=== RESPONSE HEADERS: SW ==="
-          curl --fail --silent --show-error --location --head "$base/sw.js" | sed -n '1,30p'
-          echo "=== CACHE KEY ==="
-          grep -F "trongsa-words-v5-dzongkha-alias" live/sw.js

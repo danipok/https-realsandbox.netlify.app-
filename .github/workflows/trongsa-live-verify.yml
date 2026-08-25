@@ -1,0 +1,29 @@
+name: Trongsa live verification
+
+on:
+  push:
+    branches:
+      - trongsa-live-verify-20260825
+
+jobs:
+  verify-live:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download and hash live production files
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://trongsawords.quest"
+          mkdir -p live/assets
+          for p in index.html sw.js manifest.webmanifest _headers assets/favicon.png assets/apple-touch-icon.png assets/icon-192.png assets/icon-512.png assets/og-preview.png; do
+            curl --fail --silent --show-error --location "$base/$p" -o "live/$p"
+          done
+          echo "=== LIVE SHA256 ==="
+          sha256sum live/index.html live/manifest.webmanifest live/sw.js live/_headers live/assets/*
+          echo "=== LIVE SIZES ==="
+          stat -c '%n %s bytes' live/index.html live/manifest.webmanifest live/sw.js live/_headers live/assets/*
+          echo "=== RESPONSE HEADERS ==="
+          curl --fail --silent --show-error --location --head "$base/" | sed -n '1,30p'
+          curl --fail --silent --show-error --location --head "$base/sw.js" | sed -n '1,30p'
+          echo "=== CACHE KEY ==="
+          grep -F "trongsa-words-v5-dzongkha-alias" live/sw.js

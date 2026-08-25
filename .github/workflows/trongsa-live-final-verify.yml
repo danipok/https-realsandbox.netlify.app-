@@ -1,0 +1,30 @@
+name: Trongsa final live verification
+
+on:
+  push:
+    branches:
+      - trongsa-live-verify-20260825
+
+jobs:
+  verify-live:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify live package hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://trongsawords.quest"
+          mkdir -p live/assets
+          for p in index.html sw.js manifest.webmanifest assets/favicon.png assets/apple-touch-icon.png assets/icon-192.png assets/icon-512.png assets/og-preview.png; do
+            curl --fail --silent --show-error --location "$base/$p" -o "live/$p"
+          done
+          echo "=== HASHES ==="
+          sha256sum live/index.html live/manifest.webmanifest live/sw.js live/assets/favicon.png live/assets/apple-touch-icon.png live/assets/icon-192.png live/assets/icon-512.png live/assets/og-preview.png
+          echo "=== SIZES ==="
+          stat -c '%n %s' live/index.html live/manifest.webmanifest live/sw.js live/assets/favicon.png live/assets/apple-touch-icon.png live/assets/icon-192.png live/assets/icon-512.png live/assets/og-preview.png
+          echo "=== CACHE KEY ==="
+          grep -F "trongsa-words-v5-dzongkha-alias" live/sw.js
+          echo "=== HEADERS ==="
+          curl --fail --silent --show-error --location --head "$base/" | sed -n '1,25p'
+          curl --fail --silent --show-error --location --head "$base/sw.js" | sed -n '1,25p'
+          curl --fail --silent --show-error --location --head "$base/manifest.webmanifest" | sed -n '1,25p'

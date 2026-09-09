@@ -1,6 +1,19 @@
 (() => {
   const container = document.querySelector('.registration-grid');
   if (!container) return;
+
+  const registrationInner = container.closest('.registration-inner');
+  if (registrationInner && !registrationInner.querySelector('.registration-help')) {
+    const help = document.createElement('div');
+    help.className = 'registration-help reveal';
+    help.setAttribute('aria-label', 'Course questions and registration help');
+    help.innerHTML = '<p><strong>Any questions about the course or problems signing up?</strong><br><span>ASK: <a href="mailto:daniil.pokidko@hanken.fi">daniil.pokidko@hanken.fi</a></span></p>';
+    help.style.cssText = 'max-width:760px;margin:clamp(24px,4vw,44px) auto 0;padding:18px 22px;text-align:center;border:2px solid currentColor;border-radius:18px;background:rgba(255,255,255,.42);font-size:clamp(1rem,2vw,1.2rem);line-height:1.45;';
+    const link = help.querySelector('a');
+    if (link) link.style.cssText = 'color:inherit;font-weight:800;text-decoration-thickness:2px;text-underline-offset:3px;';
+    registrationInner.appendChild(help);
+  }
+
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const blocks = [...container.querySelectorAll('.registration-block')];

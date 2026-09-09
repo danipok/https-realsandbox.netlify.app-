@@ -2,16 +2,189 @@
   const container = document.querySelector('.registration-grid');
   if (!container) return;
 
+  const helpStyleId = 'registration-help-v2-styles';
+  if (!document.getElementById(helpStyleId)) {
+    const style = document.createElement('style');
+    style.id = helpStyleId;
+    style.textContent = `
+      .registration-help{
+        position:relative;
+        z-index:6;
+        flex:0 0 auto;
+        width:min(100%,780px);
+        margin:clamp(22px,3.2vw,38px) auto 0;
+        padding:4px;
+        border-radius:30px;
+        background:linear-gradient(90deg,#e85d75 0 20%,#ef8a3d 20% 40%,#e8b84f 40% 60%,#9fbd3b 60% 80%,#4aa6b5 80% 100%);
+        box-shadow:0 16px 32px rgba(50,38,20,.14),0 5px 0 rgba(21,21,21,.12);
+        transform:rotate(-.35deg);
+        opacity:1!important;
+      }
+      .registration-help__inner{
+        position:relative;
+        display:grid;
+        grid-template-columns:auto minmax(0,1fr) auto;
+        align-items:center;
+        gap:18px;
+        padding:18px 20px;
+        border-radius:25px;
+        background:rgba(248,244,232,.96);
+        overflow:hidden;
+      }
+      .registration-help__inner::before,
+      .registration-help__inner::after{
+        content:'';
+        position:absolute;
+        border-radius:999px;
+        pointer-events:none;
+      }
+      .registration-help__inner::before{
+        width:90px;height:90px;left:-34px;top:-46px;background:rgba(232,93,117,.14);
+      }
+      .registration-help__inner::after{
+        width:110px;height:110px;right:-48px;bottom:-62px;background:rgba(74,166,181,.14);
+      }
+      .registration-help__ask{
+        position:relative;
+        z-index:1;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        min-width:88px;
+        min-height:54px;
+        padding:0 18px;
+        border-radius:16px;
+        background:#151515;
+        color:#fff;
+        font-weight:900;
+        font-size:1rem;
+        letter-spacing:.09em;
+        box-shadow:0 6px 0 rgba(21,21,21,.14);
+        transform:rotate(-3deg);
+      }
+      .registration-help__copy{
+        position:relative;
+        z-index:1;
+        min-width:0;
+      }
+      .registration-help__kicker{
+        margin:0 0 3px;
+        color:#8b4b8f;
+        font-size:.78rem;
+        line-height:1;
+        font-weight:900;
+        letter-spacing:.1em;
+        text-transform:uppercase;
+      }
+      .registration-help__title{
+        margin:0;
+        color:#151515;
+        font-size:clamp(1.05rem,1.75vw,1.42rem);
+        line-height:1.16;
+        font-weight:850;
+        letter-spacing:-.025em;
+        text-wrap:balance;
+      }
+      .registration-help__email{
+        position:relative;
+        z-index:1;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        min-height:50px;
+        max-width:100%;
+        padding:0 17px;
+        border-radius:15px;
+        background:#4aa6b5;
+        color:#fff;
+        text-decoration:none;
+        font-weight:850;
+        font-size:.9rem;
+        line-height:1.15;
+        white-space:nowrap;
+        box-shadow:0 6px 0 rgba(51,116,128,.25);
+        transition:transform .18s ease,background .18s ease,box-shadow .18s ease;
+      }
+      .registration-help__email:hover,
+      .registration-help__email:focus-visible{
+        background:#ef8a3d;
+        transform:translateY(-2px) rotate(1deg);
+        box-shadow:0 8px 0 rgba(169,91,37,.18);
+        outline:none;
+      }
+      @media (max-width:760px){
+        .registration-section.screen{
+          min-height:auto;
+          overflow:visible;
+        }
+        .registration-inner{
+          min-height:auto!important;
+          overflow:visible;
+          padding-bottom:18px!important;
+        }
+        .registration-grid{
+          overflow:visible;
+        }
+        .registration-help{
+          width:100%;
+          margin-top:16px;
+          border-radius:23px;
+          transform:none;
+          box-shadow:0 12px 24px rgba(50,38,20,.12),0 4px 0 rgba(21,21,21,.1);
+        }
+        .registration-help__inner{
+          grid-template-columns:1fr;
+          gap:11px;
+          padding:15px;
+          border-radius:19px;
+          text-align:center;
+        }
+        .registration-help__ask{
+          justify-self:center;
+          min-height:42px;
+          min-width:78px;
+          padding:0 14px;
+          border-radius:13px;
+          font-size:.88rem;
+          transform:rotate(-2deg);
+        }
+        .registration-help__kicker{
+          font-size:.7rem;
+        }
+        .registration-help__title{
+          font-size:clamp(1rem,4.7vw,1.2rem);
+          line-height:1.15;
+        }
+        .registration-help__email{
+          width:100%;
+          min-height:46px;
+          padding:0 12px;
+          border-radius:13px;
+          font-size:clamp(.78rem,3.7vw,.94rem);
+          white-space:normal;
+          overflow-wrap:anywhere;
+          word-break:break-word;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   const registrationInner = container.closest('.registration-inner');
   if (registrationInner && !registrationInner.querySelector('.registration-help')) {
-    const help = document.createElement('div');
-    help.className = 'registration-help reveal';
+    const help = document.createElement('aside');
+    help.className = 'registration-help';
     help.setAttribute('aria-label', 'Course questions and registration help');
-    help.innerHTML = '<p><strong>Any questions about the course or problems signing up?</strong><br><span>ASK: <a href="mailto:daniil.pokidko@hanken.fi">daniil.pokidko@hanken.fi</a></span></p>';
-    help.style.cssText = 'max-width:760px;margin:clamp(24px,4vw,44px) auto 0;padding:18px 22px;text-align:center;border:2px solid currentColor;border-radius:18px;background:rgba(255,255,255,.42);font-size:clamp(1rem,2vw,1.2rem);line-height:1.45;';
-    const link = help.querySelector('a');
-    if (link) link.style.cssText = 'color:inherit;font-weight:800;text-decoration-thickness:2px;text-underline-offset:3px;';
-    registrationInner.appendChild(help);
+    help.innerHTML = `
+      <div class="registration-help__inner">
+        <span class="registration-help__ask" aria-hidden="true">ASK</span>
+        <div class="registration-help__copy">
+          <p class="registration-help__kicker">Need a hand?</p>
+          <p class="registration-help__title">Any questions about the course or problems signing up?</p>
+        </div>
+        <a class="registration-help__email" href="mailto:daniil.pokidko@hanken.fi">daniil.pokidko@hanken.fi</a>
+      </div>`;
+    container.insertAdjacentElement('afterend', help);
   }
 
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
